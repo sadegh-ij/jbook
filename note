@@ -1,0 +1,19 @@
+Create JBook:
+	. Transpiler: transform different JS module system source codes for execute on the browser. we use Babel.
+	. Bundler: make a single file containing both module linked togerher. we use Webpack.
+		. Babel works in the browser BUT webpack does NOT. so we use ES-Build can transpile + bundle our code all in the browser.
+	?. implement remotely OR locally?
+	. ES-Build: is written with Golang in it's core and is wrapped with js.
+	. we are running es-build in the browser, but it has no access to file systems and eventually it throws an error while boundling.
+		so we will create a plugin to help es-build with fetch individual file from npm by giving him proper package path.
+	. browser can't execute go code, so we import "wasm" web assembly written in core of es-build.
+	. we can't reach out to the package link URL inside npm using fetch tools, so we use UNPKG for reach to package paths directly.
+	. next challenge is find a solution for relative package path import
+	. for caching requests result we use browser's indexedDB feature, and use npm localForage	package to work with indexedDB.
+	. refactore our plugin and create a separated plugin for just fetch packages, onLoad setup.
+	. fetch imported css files.
+	. in onLoad function we register a function (it can return <esbuild.onLoadResult> or does not return anything) once it finds a file matched with it's filter.
+	. running JS script simple eval is not safe.
+	. use iframe for wrappe the result of executed code. we can customize comunication with its parent.
+	
+	

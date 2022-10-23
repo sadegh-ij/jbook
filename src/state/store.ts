@@ -1,8 +1,56 @@
-import { configureStore } from '@reduxjs/toolkit';
-import reducers from './reducers';
+// import { configureStore } from '@reduxjs/toolkit';
+// import reducers from './reducers';
 
-export const store = configureStore({
-    reducer: reducers
+// export const store = configureStore({
+//     reducer: reducers
+// });
+
+// // Infer the `RootState` and `AppDispatch` types from the store itself
+// export type RootState = ReturnType<typeof store.getState>
+// // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+// export type AppDispatch = typeof store.dispatch
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducers from './reducers';
+import { ActionType } from './action-types';
+import { bundlerMiddleware } from './middlewares/bundler-middleware';
+
+export const store = createStore(
+  reducers,
+  {},
+  applyMiddleware(bundlerMiddleware, thunk)
+);
+
+store.dispatch({
+  type: ActionType.INSERT_CELL_AFTER,
+  payload: {
+    id: null,
+    type: 'code',
+  },
+});
+
+store.dispatch({
+  type: ActionType.INSERT_CELL_AFTER,
+  payload: {
+    id: null,
+    type: 'text',
+  },
+});
+
+store.dispatch({
+  type: ActionType.INSERT_CELL_AFTER,
+  payload: {
+    id: null,
+    type: 'code',
+  },
+});
+
+store.dispatch({
+  type: ActionType.INSERT_CELL_AFTER,
+  payload: {
+    id: null,
+    type: 'text',
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
